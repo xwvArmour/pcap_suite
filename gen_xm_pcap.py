@@ -1,4 +1,5 @@
-# Below command will take the single entry udp.cap or tcp.cap file and generate Mx16 udp or tcp pcap files, espectively.
+# Below command will take the single entry udp.cap or tcp.cap file,
+# re-write the IPs, for UDP add reversed packet, and generate Mx16 udp or tcp pcap files, espectively.
 # M = 1 million in IP-IP edges. The idea is each file has 250x250 records, 250x250x16 = 1M.
 # time M=1 SRC=udp.cap python3 ./gen_xm_pcap.py will generate 16 udp pcap up to 1M relationships
 # time M=32 SRC=tcp.cap python3 ./gen_xm_pcap.py will generate 32x16 tcp pcap up to 32M relationships
