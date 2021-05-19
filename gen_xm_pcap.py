@@ -1,9 +1,10 @@
-# below command will take the single entry udp.cap and generate 32x 1M udp pcap
+# Below command will take the single entry udp.cap or tcp.cap file and generate Mx16 udp or tcp pcap files, espectively.
+# M = 1 million in IP-IP edges. The idea is each file has 250x250 records, 250x250x16 = 1M.
 # time M=1 SRC=udp.cap python3 ./gen_xm_pcap.py will generate 16 udp pcap up to 1M relationships
 # time M=32 SRC=tcp.cap python3 ./gen_xm_pcap.py will generate 32x16 tcp pcap up to 32M relationships
 # if module scapy is not found run pip3 install scapy
-# ulimit -n to check open file limit
-# ulimit -S -n 4096 to increase open file limit
+# ulimit -n to check open file (i-node) limit
+# ulimit -S -n 4096 to increase open file (i-node) limit to 4096
 
 from multiprocessing import Process
 from scapy.all import *
@@ -11,7 +12,7 @@ from scapy.all import *
 capture = os.environ.get('SRC')
 
 def write(pkt, file):
-    wrpcap(file, pkt, append=True)  #appends packet to output file
+    wrpcap(file, pkt, append=True)  # appends packet to file
 
 def gen_files(cap_file, m_index, n_index):
     for sip in range(1, 251):
